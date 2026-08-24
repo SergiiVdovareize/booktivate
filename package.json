@@ -15,7 +15,7 @@
   "devDependencies": {
     "@argos-ci/cli": "^6.9.0",
     "@argos-ci/playwright": "^7.4.6",
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "^2.5.10",
     "@playwright/test": "^1.62.1",
     "dotenv-cli": "^8.0.0",
     "typescript": "3.3.3"
