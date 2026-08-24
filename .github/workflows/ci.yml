@@ -1,4 +1,4 @@
-name: CI & Visual Regression Tests
+name: CI
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
     branches: [main, master]
 
 jobs:
-  test-and-build:
-    name: Test & Visual Regression
+  # Tier 1: Fast Parallel Quality Checks (< 10s)
+  lint:
+    name: Lint & Format Check
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -27,16 +27,67 @@ jobs:
       - name: Run Biome Linter Check
         run: npm run lint
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+  unit-test:
+    name: Unit Tests & Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Run Unit Tests & Coverage
         run: npm run test:coverage
+
+  # Tier 2: Heavy Verification & Build (Executes ONLY if Tier 1 passes)
+  visual-test:
+    name: Argos Visual UI Tests
+    needs: [lint, unit-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run Argos Visual UI Tests & Upload
         run: npm run test:argos
         env:
           ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+
+  build:
+    name: Production Build
+    needs: [lint, unit-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Build Production Bundle
         run: npm run build
