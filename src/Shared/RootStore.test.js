@@ -21,6 +21,29 @@ describe("RootStore Pattern", () => {
     expect(rootStore.uiStore).toBeDefined();
     expect(rootStore.booksStore).toBeDefined();
     expect(rootStore.userStore.username).toBe("svdovareize");
+    expect(rootStore.userStore.isEditingUsername).toBe(false);
+  });
+
+  test("userStore supports startEditingUsername, cancelEditingUsername, and applyUsername", () => {
+    rootStore.userStore.startEditingUsername();
+    expect(rootStore.userStore.isEditingUsername).toBe(true);
+
+    rootStore.userStore.setDraftUsername("postnikov");
+    expect(rootStore.userStore.draftUsername).toBe("postnikov");
+    expect(rootStore.userStore.username).toBe("svdovareize");
+
+    rootStore.userStore.cancelEditingUsername();
+    expect(rootStore.userStore.isEditingUsername).toBe(false);
+    expect(rootStore.userStore.draftUsername).toBe("svdovareize");
+
+    rootStore.userStore.startEditingUsername();
+    rootStore.userStore.setDraftUsername("postnikov");
+    rootStore.userStore.applyUsername();
+
+    expect(rootStore.userStore.isEditingUsername).toBe(false);
+    expect(rootStore.userStore.username).toBe("postnikov");
+    expect(rootStore.userStore.apiBase).toBe("https://tdd.demo.reaktivate.com/v1/books/postnikov");
+    expect(mockBooksRepository.getBooks).toHaveBeenCalled();
   });
 
   test("uiStore filter controls booksStore filteredBooks derivation", async () => {

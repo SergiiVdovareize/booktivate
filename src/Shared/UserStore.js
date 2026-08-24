@@ -1,16 +1,41 @@
 import { makeAutoObservable } from "mobx";
-import { USER_NAME } from "./config";
+import { DRAFT_USER_NAME } from "./config";
 
 export class UserStore {
-  username = USER_NAME;
+  username = DRAFT_USER_NAME;
+  draftUsername = DRAFT_USER_NAME;
+  isEditingUsername = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this, { rootStore: false });
   }
 
-  setUsername = (name) => {
-    this.username = name;
+  startEditingUsername = () => {
+    this.draftUsername = this.username;
+    this.isEditingUsername = true;
+  };
+
+  cancelEditingUsername = () => {
+    this.draftUsername = this.username;
+    this.isEditingUsername = false;
+  };
+
+  setDraftUsername = (name) => {
+    this.draftUsername = name;
+  };
+
+  applyUsername = () => {
+    const trimmed = this.draftUsername ? this.draftUsername.trim() : "";
+    if (!trimmed) return;
+
+    const hasChanged = trimmed !== this.username;
+    this.username = trimmed;
+    this.isEditingUsername = false;
+
+    if (hasChanged && this.rootStore?.booksStore) {
+      this.rootStore.booksStore.loadBooks();
+    }
   };
 
   get apiBase() {

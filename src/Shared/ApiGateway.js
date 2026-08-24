@@ -1,8 +1,13 @@
 import { API_BASE } from "./config";
 
 export default class ApiGateway {
+  constructor(baseUrlGetter = () => API_BASE) {
+    this.getBaseUrl = typeof baseUrlGetter === "function" ? baseUrlGetter : () => baseUrlGetter;
+  }
+
   get = async (path) => {
-    const response = await fetch(`${API_BASE}${path}`);
+    const baseUrl = this.getBaseUrl();
+    const response = await fetch(`${baseUrl}${path}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -11,7 +16,8 @@ export default class ApiGateway {
   };
 
   post = async (path, payload) => {
-    const response = await fetch(`${API_BASE}${path}`, {
+    const baseUrl = this.getBaseUrl();
+    const response = await fetch(`${baseUrl}${path}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -1,13 +1,19 @@
 import UserStore from "./UserStore";
 import UIStore from "./UIStore";
 import BooksStore from "../Books/BooksStore";
-import defaultBooksRepository from "../Books/Books.repository.js";
+import ApiGateway from "./ApiGateway";
+import { BooksRepository } from "../Books/Books.repository.js";
 
 export class RootStore {
-  constructor(booksRepository = defaultBooksRepository) {
+  constructor(booksRepository) {
     this.userStore = new UserStore(this);
     this.uiStore = new UIStore(this);
-    this.booksStore = new BooksStore(this, booksRepository);
+
+    const repository = booksRepository || new BooksRepository(
+      new ApiGateway(() => this.userStore.apiBase)
+    );
+
+    this.booksStore = new BooksStore(this, repository);
   }
 }
 

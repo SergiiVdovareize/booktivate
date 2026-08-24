@@ -11,6 +11,34 @@ export class BooksController {
     makeAutoObservable(this, { rootStore: false });
   }
 
+  get username() {
+    return this.rootStore.userStore.username;
+  }
+
+  get draftUsername() {
+    return this.rootStore.userStore.draftUsername;
+  }
+
+  get isEditingUsername() {
+    return this.rootStore.userStore.isEditingUsername;
+  }
+
+  startEditingUsername = () => {
+    this.rootStore.userStore.startEditingUsername();
+  };
+
+  cancelEditingUsername = () => {
+    this.rootStore.userStore.cancelEditingUsername();
+  };
+
+  setDraftUsername = (name) => {
+    this.rootStore.userStore.setDraftUsername(name);
+  };
+
+  applyUsername = () => {
+    this.rootStore.userStore.applyUsername();
+  };
+
   get allBooks() {
     return this.rootStore.booksStore.allBooks;
   }

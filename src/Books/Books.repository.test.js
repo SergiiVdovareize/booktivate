@@ -24,6 +24,23 @@ describe("BooksRepository", () => {
     expect(result).toEqual(mockBooks);
   });
 
+  test("filters out empty or malformed book objects", async () => {
+    const rawBooks = [
+      { id: 111, name: "Wind in the Willows", author: "Kenneth Grahame" },
+      {},
+      null,
+      { id: 121, name: "I, Robot", author: "Isaac Asimov" }
+    ];
+    mockHttpGateway.get.mockResolvedValue(rawBooks);
+
+    const result = await repository.getBooks();
+
+    expect(result).toEqual([
+      { id: 111, name: "Wind in the Willows", author: "Kenneth Grahame" },
+      { id: 121, name: "I, Robot", author: "Isaac Asimov" }
+    ]);
+  });
+
   test("getPrivateBooks fetches private books from '/private'", async () => {
     const mockPrivateBooks = [
       { id: 2, name: "Private Book", author: "Secret Author" }
