@@ -2,6 +2,12 @@
 
 A simple React application built using **Fast-Test MVVM Architecture** and **MobX State Management**.
 
+[![CI](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml/badge.svg)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
+[![Linter](https://img.shields.io/badge/Linter-Biome-60a5fa?logo=biome)](https://biomejs.dev/)
+[![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://github.com/svdovareize/booktivate)
+[![Argos CI](https://argos-ci.com/badge.svg?repo=svdovareize/booktivate)](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
+[![Deploy](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml)
+
 ---
 
 ## 🚀 Live Demo & Argos Visual Results
@@ -14,14 +20,14 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 ## 📊 Test Coverage & Quality
 
 * **Unit Test Coverage**: **93.58%** Line Coverage (41/41 unit tests passing)
-* **Visual UI Tests**: 4 Automated Playwright visual snapshot tests integrated with Argos CI
+* **Visual UI Tests**: 5 Automated Playwright visual snapshot tests integrated with Argos CI
 * **Code Formatting & Linting**: Sub-100ms static checks via Biome Toolchain
 
 | Category | Coverage | Details |
 | :--- | :--- | :--- |
-| **Lines** | **93.58%** | 41 passing unit test cases |
-| **Statements** | **92.86%** | 100% domain model & controller coverage |
-| **Visual Snapshots** | **4 / 4 Passed** | Argos CI automated pixel-diff snapshots |
+| **Linter Check** | **Biome Passed** | Sub-100ms static code format & linter check |
+| **Unit Tests** | **93.58% Lines** | 41 passing unit test cases |
+| **Visual UI Tests** | **5 / 5 Passed** | Argos CI automated pixel-diff snapshots |
 
 ---
 
