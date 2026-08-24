@@ -33,14 +33,37 @@ export class BooksStore {
     const currentUsername = this.rootStore?.userStore?.username || "";
 
     try {
-      const [allBooks, privateBooks] = await Promise.all([
+      const [fetchedAllBooks, fetchedPrivateBooks] = await Promise.all([
         this.booksRepository.getBooks(currentUsername),
         this.booksRepository.getPrivateBooks(currentUsername),
       ]);
 
+      const allBooks = fetchedAllBooks || [];
+      const privateBooks = fetchedPrivateBooks || [];
+
+      const getBookKey = (b) => {
+        if (b.id && typeof b.id === "number") return `id:${b.id}`;
+        const titleKey = (b.title || b.name || "").trim().toLowerCase();
+        const authorKey = (b.author || "").trim().toLowerCase();
+        return `key:${titleKey}::${authorKey}`;
+      };
+
+      const privateKeys = new Set(privateBooks.map(getBookKey));
+
+      for (const book of allBooks) {
+        if (
+          privateKeys.has(getBookKey(book)) ||
+          (book.ownerId &&
+            currentUsername &&
+            book.ownerId.toLowerCase() === currentUsername.toLowerCase())
+        ) {
+          book.isPrivate = true;
+        }
+      }
+
       runInAction(() => {
-        this.allBooks = allBooks || [];
-        this.privateBooks = privateBooks || [];
+        this.allBooks = allBooks;
+        this.privateBooks = privateBooks;
         this.isLoading = false;
       });
     } catch (error) {

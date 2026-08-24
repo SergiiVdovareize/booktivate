@@ -31,4 +31,16 @@ describe("Book Model Entity (Programmers Model)", () => {
 
     expect(book.isPrivate).toBe(false);
   });
+
+  test("sets isPrivate to true if explicitly passed as private parameter", () => {
+    const rawDto = {
+      id: 131,
+      name: "Private Book",
+      author: "Some Author",
+    };
+
+    const book = new Book(rawDto, "svdovareize", true);
+
+    expect(book.isPrivate).toBe(true);
+  });
 });

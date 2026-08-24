@@ -13,7 +13,16 @@ export const BooksView = observer(({ controller: propController }) => {
 
   return (
     <div className="books-container">
-      <h2>Books List</h2>
+      <div className="books-header">
+        <h2>Books Collection</h2>
+        <button
+          type="button"
+          className="add-book-trigger-btn"
+          onClick={controller.openAddModal}
+        >
+          + Add Book
+        </button>
+      </div>
 
       {/* Filter Switch Tabs */}
       <div className="filter-tabs">
@@ -29,11 +38,16 @@ export const BooksView = observer(({ controller: propController }) => {
           className={`filter-btn ${controller.filter === "private" ? "active" : ""}`}
           onClick={() => controller.setFilter("private")}
         >
-          Private Books
+          Private Books ({controller.privateBooksCount})
         </button>
       </div>
 
-      {controller.isLoading && <div className="loading">Loading books...</div>}
+      {controller.isLoading && (
+        <div className="loading">
+          <span className="spinner"></span> Loading library collection...
+        </div>
+      )}
+
       {controller.errorMessage && (
         <div className="error">{controller.errorMessage}</div>
       )}
@@ -41,20 +55,34 @@ export const BooksView = observer(({ controller: propController }) => {
       <div className="books-list">
         {controller.filteredBooks.map((book, index) => (
           <div key={book.id || index} className="book-item">
-            <span>
-              <strong>{book.author}</strong>: {book.title || book.name}
-            </span>
+            <div className="book-info">
+              <span className="book-author">{book.author}</span>
+              <span className="book-title">{book.title || book.name}</span>
+            </div>
+            {book.isPrivate ? (
+              <span className="book-badge private">
+                <span role="img" aria-label="private">
+                  🔒
+                </span>{" "}
+                Private
+              </span>
+            ) : (
+              <span className="book-badge public">
+                <span role="img" aria-label="public">
+                  🌐
+                </span>{" "}
+                Public
+              </span>
+            )}
           </div>
         ))}
 
         {!controller.isLoading && controller.filteredBooks.length === 0 && (
-          <div className="empty-state">No books found in this view.</div>
+          <div className="empty-state">
+            <p>No books found in this view.</p>
+          </div>
         )}
       </div>
-
-      <button type="button" onClick={controller.openAddModal}>
-        Add Book
-      </button>
 
       <AddBookModal controller={controller} />
     </div>

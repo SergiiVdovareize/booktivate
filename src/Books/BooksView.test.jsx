@@ -22,6 +22,7 @@ describe("BooksView Component", () => {
       isLoading: false,
       errorMessage: null,
       filteredBooks: mockBooks,
+      privateBooksCount: 1,
       isAddModalOpen: false,
       loadBooks: jest.fn(),
       setFilter: jest.fn(),
@@ -45,8 +46,10 @@ describe("BooksView Component", () => {
     });
 
     expect(mockController.loadBooks).toHaveBeenCalled();
-    expect(container.textContent).toContain("Frank Herbert: Dune");
-    expect(container.textContent).toContain("Isaac Asimov: Foundation");
+    expect(container.textContent).toContain("Frank Herbert");
+    expect(container.textContent).toContain("Dune");
+    expect(container.textContent).toContain("Isaac Asimov");
+    expect(container.textContent).toContain("Foundation");
   });
 
   test("clicking filter tabs calls setFilter", () => {
@@ -82,7 +85,7 @@ describe("BooksView Component", () => {
       );
     });
 
-    expect(container.textContent).toContain("Loading books...");
+    expect(container.textContent).toContain("Loading library collection...");
     expect(container.textContent).toContain("Failed to fetch");
   });
 
@@ -112,7 +115,7 @@ describe("BooksView Component", () => {
       );
     });
 
-    const addBtn = container.querySelector("button:not(.filter-btn)");
+    const addBtn = container.querySelector(".add-book-trigger-btn");
 
     act(() => {
       addBtn.dispatchEvent(new MouseEvent("click", { bubbles: true }));

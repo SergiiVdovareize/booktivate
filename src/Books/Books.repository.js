@@ -20,7 +20,7 @@ export class BooksRepository {
     const valid = (
       Array.isArray(privateBooksDto) ? privateBooksDto : []
     ).filter(isValidBook);
-    return valid.map((dto) => new Book(dto, currentUsername));
+    return valid.map((dto) => new Book(dto, currentUsername, true));
   };
 
   addBook = async ({ name, author }) => {

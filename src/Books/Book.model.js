@@ -1,11 +1,18 @@
 export class Book {
-  constructor({ id, name, author, ownerId } = {}, currentUsername = "") {
+  constructor(
+    { id, name, author, ownerId } = {},
+    currentUsername = "",
+    isPrivate = false,
+  ) {
     this.id = id || String(Date.now() + Math.random());
     this.title = name || "";
     this.author = author || "";
     this.ownerId = ownerId || "";
     this.isPrivate = Boolean(
-      ownerId && currentUsername && ownerId === currentUsername,
+      isPrivate ||
+        (ownerId &&
+          currentUsername &&
+          ownerId.toLowerCase() === currentUsername.toLowerCase()),
     );
   }
 
