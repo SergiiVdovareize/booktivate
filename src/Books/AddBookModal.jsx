@@ -1,20 +1,26 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { useController } from "../Shared/ControllerContext";
 
-export const AddBookModal = observer(({ controller }) => {
-  if (!controller.isAddModalOpen) {
-    return null;
-  }
+export const AddBookModal = observer(({ controller: propController }) => {
+  const contextController = useController();
+  const controller = propController || contextController;
+
+  if (!controller.isAddModalOpen) return null;
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h3>Add New Book</h3>
 
+        {controller.errorMessage && (
+          <div className="error">{controller.errorMessage}</div>
+        )}
+
         <div className="form-group">
-          <label htmlFor="book-name-input">Title</label>
+          <label htmlFor="book-name">Book Title</label>
           <input
-            id="book-name-input"
+            id="book-name"
             type="text"
             value={controller.newBookName}
             onChange={(e) => controller.setNewBookName(e.target.value)}
@@ -23,9 +29,9 @@ export const AddBookModal = observer(({ controller }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="book-author-input">Author</label>
+          <label htmlFor="book-author">Author</label>
           <input
-            id="book-author-input"
+            id="book-author"
             type="text"
             value={controller.newBookAuthor}
             onChange={(e) => controller.setNewBookAuthor(e.target.value)}
@@ -41,7 +47,6 @@ export const AddBookModal = observer(({ controller }) => {
             {controller.isSubmitting ? "Adding..." : "Add"}
           </button>
           <button
-            type="button"
             className="secondary"
             onClick={controller.closeAddModal}
             disabled={controller.isSubmitting}

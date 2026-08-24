@@ -30,10 +30,12 @@ export class BooksStore {
       this.rootStore.uiStore.setErrorMessage(null);
     }
 
+    const currentUsername = this.rootStore?.userStore?.username || "";
+
     try {
       const [allBooks, privateBooks] = await Promise.all([
-        this.booksRepository.getBooks(),
-        this.booksRepository.getPrivateBooks()
+        this.booksRepository.getBooks(currentUsername),
+        this.booksRepository.getPrivateBooks(currentUsername)
       ]);
 
       runInAction(() => {

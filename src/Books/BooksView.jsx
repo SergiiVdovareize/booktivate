@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import AddBookModal from "./AddBookModal";
+import { useController } from "../Shared/ControllerContext";
 
-export const BooksView = observer(({ controller }) => {
+export const BooksView = observer(({ controller: propController }) => {
+  const contextController = useController();
+  const controller = propController || contextController;
+
   useEffect(() => {
     controller.loadBooks();
   }, [controller]);
@@ -36,7 +40,7 @@ export const BooksView = observer(({ controller }) => {
         {controller.filteredBooks.map((book, index) => (
           <div key={book.id || index} className="book-item">
             <span>
-              <strong>{book.author}</strong>: {book.name}
+              <strong>{book.author}</strong>: {book.title || book.name}
             </span>
           </div>
         ))}

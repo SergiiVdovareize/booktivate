@@ -1,11 +1,12 @@
 import { RootStore } from "./RootStore.js";
+import { DRAFT_USER_NAME } from "./config.js";
 
 describe("RootStore Pattern", () => {
   let rootStore;
   let mockBooksRepository;
 
-  const mockAllBooks = [{ id: 1, name: "Dune", author: "Frank Herbert" }];
-  const mockPrivateBooks = [{ id: 1, name: "Dune", author: "Frank Herbert" }];
+  const mockAllBooks = [{ id: 1, title: "Dune", author: "Frank Herbert" }];
+  const mockPrivateBooks = [{ id: 1, title: "Dune", author: "Frank Herbert" }];
 
   beforeEach(() => {
     mockBooksRepository = {
@@ -20,7 +21,7 @@ describe("RootStore Pattern", () => {
     expect(rootStore.userStore).toBeDefined();
     expect(rootStore.uiStore).toBeDefined();
     expect(rootStore.booksStore).toBeDefined();
-    expect(rootStore.userStore.username).toBe("svdovareize");
+    expect(rootStore.userStore.username).toBe(DRAFT_USER_NAME);
     expect(rootStore.userStore.isEditingUsername).toBe(false);
   });
 
@@ -30,11 +31,11 @@ describe("RootStore Pattern", () => {
 
     rootStore.userStore.setDraftUsername("postnikov");
     expect(rootStore.userStore.draftUsername).toBe("postnikov");
-    expect(rootStore.userStore.username).toBe("svdovareize");
+    expect(rootStore.userStore.username).toBe(DRAFT_USER_NAME);
 
     rootStore.userStore.cancelEditingUsername();
     expect(rootStore.userStore.isEditingUsername).toBe(false);
-    expect(rootStore.userStore.draftUsername).toBe("svdovareize");
+    expect(rootStore.userStore.draftUsername).toBe(DRAFT_USER_NAME);
 
     rootStore.userStore.startEditingUsername();
     rootStore.userStore.setDraftUsername("postnikov");

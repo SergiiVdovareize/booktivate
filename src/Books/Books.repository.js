@@ -1,4 +1,5 @@
 import ApiGateway from "../Shared/ApiGateway.js";
+import Book from "./Book.model.js";
 
 const isValidBook = (book) => Boolean(book && typeof book === "object" && (book.name || book.author));
 
@@ -7,14 +8,16 @@ export class BooksRepository {
     this.httpGateway = httpGateway;
   }
 
-  getBooks = async () => {
+  getBooks = async (currentUsername = "") => {
     const booksDto = await this.httpGateway.get("/");
-    return (Array.isArray(booksDto) ? booksDto : []).filter(isValidBook);
+    const valid = (Array.isArray(booksDto) ? booksDto : []).filter(isValidBook);
+    return valid.map((dto) => new Book(dto, currentUsername));
   };
 
-  getPrivateBooks = async () => {
+  getPrivateBooks = async (currentUsername = "") => {
     const privateBooksDto = await this.httpGateway.get("/private");
-    return (Array.isArray(privateBooksDto) ? privateBooksDto : []).filter(isValidBook);
+    const valid = (Array.isArray(privateBooksDto) ? privateBooksDto : []).filter(isValidBook);
+    return valid.map((dto) => new Book(dto, currentUsername));
   };
 
   addBook = async ({ name, author }) => {

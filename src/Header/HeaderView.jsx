@@ -1,7 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { useController } from "../Shared/ControllerContext";
 
-export const HeaderView = observer(({ controller }) => {
+export const HeaderView = observer(({ controller: propController }) => {
+  const contextController = useController();
+  const controller = propController || contextController;
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       controller.applyUsername();
