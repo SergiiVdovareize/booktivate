@@ -31,4 +31,7 @@ yarn-error.log*
 *.scratch
 REFACTORING_LOG.md
 TASK_ANALYSIS.md
+Fast-Test Homework.pdf
+*.pdf
+
 
