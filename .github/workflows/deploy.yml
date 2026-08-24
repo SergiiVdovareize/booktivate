@@ -36,6 +36,7 @@ jobs:
       - name: Install & Build
         run: |
           npm ci
+          npm run test:coverage
           npm run build
 
       - name: Upload GitHub Pages Artifact

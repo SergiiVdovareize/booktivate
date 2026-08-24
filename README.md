@@ -2,10 +2,10 @@
 
 A simple React application built using **Fast-Test MVVM Architecture** and **MobX State Management**.
 
-[![CI](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml/badge.svg)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
-[![Linter](https://img.shields.io/badge/Linter-passing-brightgreen?logo=biome)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
+[![Linter](https://img.shields.io/github/actions/workflow/status/svdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
+[![Unit Tests](https://img.shields.io/github/actions/workflow/status/svdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://svdovareize.github.io/booktivate/coverage/index.html)
-[![Argos CI](https://argos-ci.com/badge.svg?repo=svdovareize/booktivate)](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
+[![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
 [![Deploy](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml)
 
 ---
@@ -15,14 +15,6 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 * **🌐 Live Application Demo**: [https://svdovareize.github.io/booktivate/](https://svdovareize.github.io/booktivate/)
 * **📊 Interactive Test Coverage Webpage**: [https://svdovareize.github.io/booktivate/coverage/index.html](https://svdovareize.github.io/booktivate/coverage/index.html)
 * **🎨 Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate/builds/1](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
-
----
-
-## 📊 Test Coverage & Quality
-
-* **Unit Test Coverage**: **93.58%** Line Coverage (41/41 unit tests passing)
-* **Visual UI Tests**: 5 Automated Playwright visual snapshot tests integrated with Argos CI
-* **Code Formatting & Linting**: Sub-100ms static checks via Biome Toolchain
 
 ---
 
