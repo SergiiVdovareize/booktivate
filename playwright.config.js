@@ -9,8 +9,24 @@ module.exports = defineConfig({
   },
   projects: [
     {
-      name: "chromium",
+      name: "Desktop Chrome",
       use: { ...devices["Desktop Chrome"] }
+    },
+    {
+      name: "Desktop Firefox",
+      use: { ...devices["Desktop Firefox"] }
+    },
+    {
+      name: "Desktop Edge",
+      use: { ...devices["Desktop Edge"] }
+    },
+    {
+      name: "Pixel 5",
+      use: { ...devices["Pixel 5"] }
+    },
+    {
+      name: "iPhone 16 Pro Max",
+      use: { ...devices["iPhone 16 Pro Max"] }
     }
   ],
   webServer: {
