@@ -1,118 +1,88 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import defaultBooksRepository from "./Books.repository.js";
+import { makeAutoObservable } from "mobx";
+import defaultRootStore, { RootStore } from "../Shared/RootStore.js";
 
 export class BooksController {
-  allBooks = [];
-  privateBooks = [];
-  filter = "all"; // 'all' | 'private'
-  isLoading = false;
-  errorMessage = null;
+  constructor(rootStoreOrRepository) {
+    if (rootStoreOrRepository && rootStoreOrRepository.userStore && rootStoreOrRepository.booksStore) {
+      this.rootStore = rootStoreOrRepository;
+    } else {
+      this.rootStore = new RootStore(rootStoreOrRepository);
+    }
+    makeAutoObservable(this, { rootStore: false });
+  }
 
-  // Add Book Modal & Form Observables
-  isAddModalOpen = false;
-  newBookName = "";
-  newBookAuthor = "";
-  isSubmitting = false;
+  get allBooks() {
+    return this.rootStore.booksStore.allBooks;
+  }
 
-  constructor(booksRepository = defaultBooksRepository) {
-    this.booksRepository = booksRepository;
-    makeAutoObservable(this, {
-      booksRepository: false
-    });
+  get privateBooks() {
+    return this.rootStore.booksStore.privateBooks;
+  }
+
+  get isLoading() {
+    return this.rootStore.booksStore.isLoading;
+  }
+
+  get filter() {
+    return this.rootStore.uiStore.filter;
+  }
+
+  get isAddModalOpen() {
+    return this.rootStore.uiStore.isAddModalOpen;
+  }
+
+  get newBookName() {
+    return this.rootStore.uiStore.newBookName;
+  }
+
+  get newBookAuthor() {
+    return this.rootStore.uiStore.newBookAuthor;
+  }
+
+  get isSubmitting() {
+    return this.rootStore.uiStore.isSubmitting;
+  }
+
+  get errorMessage() {
+    return this.rootStore.uiStore.errorMessage;
   }
 
   get filteredBooks() {
-    return this.filter === "private" ? this.privateBooks : this.allBooks;
+    return this.rootStore.booksStore.filteredBooks;
   }
 
   get privateBooksCount() {
-    return this.privateBooks.length;
+    return this.rootStore.booksStore.privateBooksCount;
   }
 
   setFilter = (filter) => {
-    this.filter = filter;
-  };
-
-  loadBooks = async () => {
-    this.isLoading = true;
-    this.errorMessage = null;
-
-    try {
-      const [allBooks, privateBooks] = await Promise.all([
-        this.booksRepository.getBooks(),
-        this.booksRepository.getPrivateBooks()
-      ]);
-
-      runInAction(() => {
-        this.allBooks = allBooks || [];
-        this.privateBooks = privateBooks || [];
-        this.isLoading = false;
-      });
-    } catch (error) {
-      runInAction(() => {
-        this.errorMessage = error.message || "Failed to load books";
-        this.isLoading = false;
-      });
-    }
+    this.rootStore.uiStore.setFilter(filter);
   };
 
   openAddModal = () => {
-    this.isAddModalOpen = true;
-    this.errorMessage = null;
+    this.rootStore.uiStore.openAddModal();
   };
 
   closeAddModal = () => {
-    this.isAddModalOpen = false;
-    this.newBookName = "";
-    this.newBookAuthor = "";
-    this.errorMessage = null;
+    this.rootStore.uiStore.closeAddModal();
   };
 
   setNewBookName = (name) => {
-    this.newBookName = name;
+    this.rootStore.uiStore.setNewBookName(name);
   };
 
   setNewBookAuthor = (author) => {
-    this.newBookAuthor = author;
+    this.rootStore.uiStore.setNewBookAuthor(author);
   };
 
-  addBook = async () => {
-    if (!this.newBookName.trim() || !this.newBookAuthor.trim()) {
-      this.errorMessage = "Both book title and author are required.";
-      return;
-    }
+  loadBooks = () => {
+    return this.rootStore.booksStore.loadBooks();
+  };
 
-    this.isSubmitting = true;
-    this.errorMessage = null;
-
-    try {
-      const success = await this.booksRepository.addBook({
-        name: this.newBookName.trim(),
-        author: this.newBookAuthor.trim()
-      });
-
-      if (success) {
-        await this.loadBooks();
-        runInAction(() => {
-          this.isAddModalOpen = false;
-          this.newBookName = "";
-          this.newBookAuthor = "";
-          this.isSubmitting = false;
-        });
-      } else {
-        runInAction(() => {
-          this.errorMessage = "Failed to add book.";
-          this.isSubmitting = false;
-        });
-      }
-    } catch (error) {
-      runInAction(() => {
-        this.errorMessage = error.message || "Error occurred while adding book.";
-        this.isSubmitting = false;
-      });
-    }
+  addBook = () => {
+    return this.rootStore.booksStore.addBook();
   };
 }
 
-const booksController = new BooksController();
+const booksController = new BooksController(defaultRootStore);
 export default booksController;
