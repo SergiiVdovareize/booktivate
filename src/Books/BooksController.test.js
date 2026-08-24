@@ -31,6 +31,30 @@ describe("BooksController", () => {
     expect(controller.errorMessage).toBeNull();
   });
 
+  test("facade getters delegate properly to RootStore child stores", () => {
+    controller.rootStore.booksStore.allBooks = [{ id: 10, title: "Facade Book", author: "Test Author" }];
+    controller.rootStore.booksStore.privateBooks = [{ id: 10, title: "Facade Book", author: "Test Author" }];
+    controller.rootStore.booksStore.isLoading = true;
+    controller.rootStore.uiStore.filter = "private";
+    controller.rootStore.uiStore.isAddModalOpen = true;
+    controller.rootStore.uiStore.newBookName = "Test Title";
+    controller.rootStore.uiStore.newBookAuthor = "Test Author";
+    controller.rootStore.uiStore.isSubmitting = true;
+    controller.rootStore.uiStore.errorMessage = "Error Test";
+
+    expect(controller.allBooks).toHaveLength(1);
+    expect(controller.privateBooks).toHaveLength(1);
+    expect(controller.isLoading).toBe(true);
+    expect(controller.filter).toBe("private");
+    expect(controller.isAddModalOpen).toBe(true);
+    expect(controller.newBookName).toBe("Test Title");
+    expect(controller.newBookAuthor).toBe("Test Author");
+    expect(controller.isSubmitting).toBe(true);
+    expect(controller.errorMessage).toBe("Error Test");
+    expect(controller.filteredBooks).toHaveLength(1);
+    expect(controller.privateBooksCount).toBe(1);
+  });
+
   test("loadBooks action fetches all & private books and updates MobX observables", async () => {
     const loadPromise = controller.loadBooks();
     expect(controller.isLoading).toBe(true);
@@ -123,6 +147,30 @@ describe("BooksController", () => {
       expect(controller.isAddModalOpen).toBe(false);
       expect(controller.newBookName).toBe("");
       expect(controller.newBookAuthor).toBe("");
+      expect(controller.isSubmitting).toBe(false);
+    });
+
+    test("addBook handles repository returning false", async () => {
+      mockBooksRepository.addBook.mockResolvedValue(false);
+      controller.openAddModal();
+      controller.setNewBookName("Failed Book");
+      controller.setNewBookAuthor("Unknown");
+
+      await controller.addBook();
+
+      expect(controller.errorMessage).toBe("Failed to add book.");
+      expect(controller.isSubmitting).toBe(false);
+    });
+
+    test("addBook handles network or server exception", async () => {
+      mockBooksRepository.addBook.mockRejectedValue(new Error("Server Error"));
+      controller.openAddModal();
+      controller.setNewBookName("Exception Book");
+      controller.setNewBookAuthor("Unknown");
+
+      await controller.addBook();
+
+      expect(controller.errorMessage).toBe("Server Error");
       expect(controller.isSubmitting).toBe(false);
     });
   });
