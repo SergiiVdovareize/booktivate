@@ -3,7 +3,10 @@ import defaultBooksController from "../Books/BooksController";
 
 const ControllerContext = createContext(defaultBooksController);
 
-export const ControllerProvider = ({ controller = defaultBooksController, children }) => (
+export const ControllerProvider = ({
+  controller = defaultBooksController,
+  children,
+}) => (
   <ControllerContext.Provider value={controller}>
     {children}
   </ControllerContext.Provider>

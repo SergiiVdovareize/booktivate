@@ -20,7 +20,7 @@ describe("ControllerContext & useController hook", () => {
         <ControllerProvider controller={mockController}>
           <TestComponent />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 

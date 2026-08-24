@@ -4,7 +4,9 @@ export class Book {
     this.title = name || "";
     this.author = author || "";
     this.ownerId = ownerId || "";
-    this.isPrivate = Boolean(ownerId && currentUsername && ownerId === currentUsername);
+    this.isPrivate = Boolean(
+      ownerId && currentUsername && ownerId === currentUsername,
+    );
   }
 
   get displayTitle() {

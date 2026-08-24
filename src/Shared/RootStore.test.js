@@ -1,5 +1,5 @@
-import { RootStore } from "./RootStore.js";
 import { DRAFT_USER_NAME } from "./config.js";
+import { RootStore } from "./RootStore.js";
 
 describe("RootStore Pattern", () => {
   let rootStore;
@@ -12,7 +12,7 @@ describe("RootStore Pattern", () => {
     mockBooksRepository = {
       getBooks: jest.fn().mockResolvedValue(mockAllBooks),
       getPrivateBooks: jest.fn().mockResolvedValue(mockPrivateBooks),
-      addBook: jest.fn().mockResolvedValue(true)
+      addBook: jest.fn().mockResolvedValue(true),
     };
     rootStore = new RootStore(mockBooksRepository);
   });
@@ -29,8 +29,8 @@ describe("RootStore Pattern", () => {
     rootStore.userStore.startEditingUsername();
     expect(rootStore.userStore.isEditingUsername).toBe(true);
 
-    rootStore.userStore.setDraftUsername("postnikov");
-    expect(rootStore.userStore.draftUsername).toBe("postnikov");
+    rootStore.userStore.setDraftUsername("smith");
+    expect(rootStore.userStore.draftUsername).toBe("smith");
     expect(rootStore.userStore.username).toBe(DRAFT_USER_NAME);
 
     rootStore.userStore.cancelEditingUsername();
@@ -38,12 +38,14 @@ describe("RootStore Pattern", () => {
     expect(rootStore.userStore.draftUsername).toBe(DRAFT_USER_NAME);
 
     rootStore.userStore.startEditingUsername();
-    rootStore.userStore.setDraftUsername("postnikov");
+    rootStore.userStore.setDraftUsername("smith");
     rootStore.userStore.applyUsername();
 
     expect(rootStore.userStore.isEditingUsername).toBe(false);
-    expect(rootStore.userStore.username).toBe("postnikov");
-    expect(rootStore.userStore.apiBase).toBe("https://tdd.demo.reaktivate.com/v1/books/postnikov");
+    expect(rootStore.userStore.username).toBe("smith");
+    expect(rootStore.userStore.apiBase).toBe(
+      "https://tdd.demo.reaktivate.com/v1/books/smith",
+    );
     expect(mockBooksRepository.getBooks).toHaveBeenCalled();
   });
 
@@ -68,7 +70,7 @@ describe("RootStore Pattern", () => {
 
     expect(mockBooksRepository.addBook).toHaveBeenCalledWith({
       name: "Neuromancer",
-      author: "William Gibson"
+      author: "William Gibson",
     });
     expect(rootStore.uiStore.isAddModalOpen).toBe(false);
   });

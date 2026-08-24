@@ -6,7 +6,7 @@ describe("Book Model Entity (Programmers Model)", () => {
       id: 111,
       name: "Wind in the Willows",
       author: "Kenneth Grahame",
-      ownerId: "svdovareize"
+      ownerId: "svdovareize",
     };
 
     const book = new Book(rawDto, "svdovareize");
@@ -24,7 +24,7 @@ describe("Book Model Entity (Programmers Model)", () => {
       id: 121,
       name: "I, Robot",
       author: "Isaac Asimov",
-      ownerId: "postnikov"
+      ownerId: "smith",
     };
 
     const book = new Book(rawDto, "svdovareize");

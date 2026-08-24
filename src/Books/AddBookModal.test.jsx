@@ -21,7 +21,7 @@ describe("AddBookModal Component", () => {
       setNewBookName: jest.fn(),
       setNewBookAuthor: jest.fn(),
       addBook: jest.fn(),
-      closeAddModal: jest.fn()
+      closeAddModal: jest.fn(),
     };
   });
 
@@ -38,7 +38,7 @@ describe("AddBookModal Component", () => {
         <ControllerProvider controller={mockController}>
           <AddBookModal />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -53,7 +53,7 @@ describe("AddBookModal Component", () => {
         <ControllerProvider controller={mockController}>
           <AddBookModal />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -88,7 +88,7 @@ describe("AddBookModal Component", () => {
         <ControllerProvider controller={mockController}>
           <AddBookModal />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 

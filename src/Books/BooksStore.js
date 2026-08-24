@@ -11,7 +11,7 @@ export class BooksStore {
     this.booksRepository = booksRepository;
     makeAutoObservable(this, {
       rootStore: false,
-      booksRepository: false
+      booksRepository: false,
     });
   }
 
@@ -35,7 +35,7 @@ export class BooksStore {
     try {
       const [allBooks, privateBooks] = await Promise.all([
         this.booksRepository.getBooks(currentUsername),
-        this.booksRepository.getPrivateBooks(currentUsername)
+        this.booksRepository.getPrivateBooks(currentUsername),
       ]);
 
       runInAction(() => {
@@ -46,7 +46,9 @@ export class BooksStore {
     } catch (error) {
       runInAction(() => {
         if (this.rootStore?.uiStore) {
-          this.rootStore.uiStore.setErrorMessage(error.message || "Failed to load books");
+          this.rootStore.uiStore.setErrorMessage(
+            error.message || "Failed to load books",
+          );
         }
         this.isLoading = false;
       });
@@ -71,7 +73,10 @@ export class BooksStore {
     }
 
     try {
-      const success = await this.booksRepository.addBook({ name: title, author });
+      const success = await this.booksRepository.addBook({
+        name: title,
+        author,
+      });
 
       if (success) {
         await this.loadBooks();
@@ -92,7 +97,9 @@ export class BooksStore {
     } catch (error) {
       runInAction(() => {
         if (uiStore) {
-          uiStore.setErrorMessage(error.message || "Error occurred while adding book.");
+          uiStore.setErrorMessage(
+            error.message || "Error occurred while adding book.",
+          );
           uiStore.setIsSubmitting(false);
         }
       });

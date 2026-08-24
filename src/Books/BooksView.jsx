@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
 import { observer } from "mobx-react";
-import AddBookModal from "./AddBookModal";
+import React, { useEffect } from "react";
 import { useController } from "../Shared/ControllerContext";
+import AddBookModal from "./AddBookModal";
 
 export const BooksView = observer(({ controller: propController }) => {
   const contextController = useController();
@@ -34,7 +34,9 @@ export const BooksView = observer(({ controller: propController }) => {
       </div>
 
       {controller.isLoading && <div className="loading">Loading books...</div>}
-      {controller.errorMessage && <div className="error">{controller.errorMessage}</div>}
+      {controller.errorMessage && (
+        <div className="error">{controller.errorMessage}</div>
+      )}
 
       <div className="books-list">
         {controller.filteredBooks.map((book, index) => (
@@ -50,7 +52,7 @@ export const BooksView = observer(({ controller: propController }) => {
         )}
       </div>
 
-      <button onClick={controller.openAddModal}>
+      <button type="button" onClick={controller.openAddModal}>
         Add Book
       </button>
 

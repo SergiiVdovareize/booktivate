@@ -10,7 +10,7 @@ describe("BooksView Component", () => {
 
   const mockBooks = [
     { id: 1, title: "Dune", author: "Frank Herbert" },
-    { id: 2, title: "Foundation", author: "Isaac Asimov" }
+    { id: 2, title: "Foundation", author: "Isaac Asimov" },
   ];
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe("BooksView Component", () => {
       isAddModalOpen: false,
       loadBooks: jest.fn(),
       setFilter: jest.fn(),
-      openAddModal: jest.fn()
+      openAddModal: jest.fn(),
     };
   });
 
@@ -40,7 +40,7 @@ describe("BooksView Component", () => {
         <ControllerProvider controller={mockController}>
           <BooksView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -55,7 +55,7 @@ describe("BooksView Component", () => {
         <ControllerProvider controller={mockController}>
           <BooksView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -78,7 +78,7 @@ describe("BooksView Component", () => {
         <ControllerProvider controller={mockController}>
           <BooksView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -95,7 +95,7 @@ describe("BooksView Component", () => {
         <ControllerProvider controller={mockController}>
           <BooksView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -108,7 +108,7 @@ describe("BooksView Component", () => {
         <ControllerProvider controller={mockController}>
           <BooksView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 

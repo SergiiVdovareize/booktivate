@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import booksController from "./Books/BooksController";
-import { ControllerProvider } from "./Shared/ControllerContext";
-import HeaderView from "./Header/HeaderView";
 import BooksView from "./Books/BooksView";
+import HeaderView from "./Header/HeaderView";
+import { ControllerProvider } from "./Shared/ControllerContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,5 +15,5 @@ ReactDOM.render(
       </main>
     </ControllerProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

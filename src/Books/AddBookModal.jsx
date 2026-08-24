@@ -1,5 +1,5 @@
-import React from "react";
 import { observer } from "mobx-react";
+import React from "react";
 import { useController } from "../Shared/ControllerContext";
 
 export const AddBookModal = observer(({ controller: propController }) => {
@@ -41,12 +41,14 @@ export const AddBookModal = observer(({ controller: propController }) => {
 
         <div className="modal-actions">
           <button
+            type="button"
             onClick={controller.addBook}
             disabled={controller.isSubmitting}
           >
             {controller.isSubmitting ? "Adding..." : "Add"}
           </button>
           <button
+            type="button"
             className="secondary"
             onClick={controller.closeAddModal}
             disabled={controller.isSubmitting}

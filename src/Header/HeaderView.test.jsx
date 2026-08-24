@@ -20,7 +20,7 @@ describe("HeaderView Component", () => {
       startEditingUsername: jest.fn(),
       cancelEditingUsername: jest.fn(),
       setDraftUsername: jest.fn(),
-      applyUsername: jest.fn()
+      applyUsername: jest.fn(),
     };
   });
 
@@ -35,7 +35,7 @@ describe("HeaderView Component", () => {
         <ControllerProvider controller={mockController}>
           <HeaderView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -50,7 +50,7 @@ describe("HeaderView Component", () => {
         <ControllerProvider controller={mockController}>
           <HeaderView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -70,7 +70,7 @@ describe("HeaderView Component", () => {
         <ControllerProvider controller={mockController}>
           <HeaderView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
@@ -100,19 +100,23 @@ describe("HeaderView Component", () => {
         <ControllerProvider controller={mockController}>
           <HeaderView />
         </ControllerProvider>,
-        container
+        container,
       );
     });
 
     const input = container.querySelector("#user-input");
 
     act(() => {
-      input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+      input.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
+      );
     });
     expect(mockController.applyUsername).toHaveBeenCalled();
 
     act(() => {
-      input.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+      input.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+      );
     });
     expect(mockController.cancelEditingUsername).toHaveBeenCalled();
   });

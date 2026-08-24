@@ -3,7 +3,11 @@ import defaultRootStore, { RootStore } from "../Shared/RootStore.js";
 
 export class BooksController {
   constructor(rootStoreOrRepository) {
-    if (rootStoreOrRepository && rootStoreOrRepository.userStore && rootStoreOrRepository.booksStore) {
+    if (
+      rootStoreOrRepository &&
+      rootStoreOrRepository.userStore &&
+      rootStoreOrRepository.booksStore
+    ) {
       this.rootStore = rootStoreOrRepository;
     } else {
       this.rootStore = new RootStore(rootStoreOrRepository);

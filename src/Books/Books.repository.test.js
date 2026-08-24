@@ -1,5 +1,5 @@
-import { BooksRepository } from "./Books.repository.js";
 import Book from "./Book.model.js";
+import { BooksRepository } from "./Books.repository.js";
 
 describe("BooksRepository", () => {
   let repository;
@@ -8,14 +8,19 @@ describe("BooksRepository", () => {
   beforeEach(() => {
     mockHttpGateway = {
       get: jest.fn(),
-      post: jest.fn()
+      post: jest.fn(),
     };
     repository = new BooksRepository(mockHttpGateway);
   });
 
   test("getBooks fetches all books from root path '/' and maps to Book entities", async () => {
     const mockBooks = [
-      { id: 1, name: "Wind in the Willows", author: "Kenneth Grahame", ownerId: "svdovareize" }
+      {
+        id: 1,
+        name: "Wind in the Willows",
+        author: "Kenneth Grahame",
+        ownerId: "svdovareize",
+      },
     ];
     mockHttpGateway.get.mockResolvedValue(mockBooks);
 
@@ -34,7 +39,7 @@ describe("BooksRepository", () => {
       { id: 111, name: "Wind in the Willows", author: "Kenneth Grahame" },
       {},
       null,
-      { id: 121, name: "I, Robot", author: "Isaac Asimov" }
+      { id: 121, name: "I, Robot", author: "Isaac Asimov" },
     ];
     mockHttpGateway.get.mockResolvedValue(rawBooks);
 
@@ -47,7 +52,12 @@ describe("BooksRepository", () => {
 
   test("getPrivateBooks fetches private books from '/private' and maps to Book entities", async () => {
     const mockPrivateBooks = [
-      { id: 2, name: "Private Book", author: "Secret Author", ownerId: "svdovareize" }
+      {
+        id: 2,
+        name: "Private Book",
+        author: "Secret Author",
+        ownerId: "svdovareize",
+      },
     ];
     mockHttpGateway.get.mockResolvedValue(mockPrivateBooks);
 
@@ -73,7 +83,10 @@ describe("BooksRepository", () => {
   test("addBook returns false when status is not ok", async () => {
     mockHttpGateway.post.mockResolvedValue({ status: "error" });
 
-    const result = await repository.addBook({ name: "Fail Book", author: "Unknown" });
+    const result = await repository.addBook({
+      name: "Fail Book",
+      author: "Unknown",
+    });
 
     expect(result).toBe(false);
   });

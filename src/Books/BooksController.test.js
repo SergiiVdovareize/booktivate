@@ -6,18 +6,18 @@ describe("BooksController", () => {
 
   const sampleAllBooks = [
     { id: 1, name: "Wind in the Willows", author: "Kenneth Grahame" },
-    { id: 2, name: "I, Robot", author: "Isaac Asimov" }
+    { id: 2, name: "I, Robot", author: "Isaac Asimov" },
   ];
 
   const samplePrivateBooks = [
-    { id: 2, name: "I, Robot", author: "Isaac Asimov" }
+    { id: 2, name: "I, Robot", author: "Isaac Asimov" },
   ];
 
   beforeEach(() => {
     mockBooksRepository = {
       getBooks: jest.fn().mockResolvedValue(sampleAllBooks),
       getPrivateBooks: jest.fn().mockResolvedValue(samplePrivateBooks),
-      addBook: jest.fn()
+      addBook: jest.fn(),
     };
     controller = new BooksController(mockBooksRepository);
   });
@@ -32,8 +32,12 @@ describe("BooksController", () => {
   });
 
   test("facade getters delegate properly to RootStore child stores", () => {
-    controller.rootStore.booksStore.allBooks = [{ id: 10, title: "Facade Book", author: "Test Author" }];
-    controller.rootStore.booksStore.privateBooks = [{ id: 10, title: "Facade Book", author: "Test Author" }];
+    controller.rootStore.booksStore.allBooks = [
+      { id: 10, title: "Facade Book", author: "Test Author" },
+    ];
+    controller.rootStore.booksStore.privateBooks = [
+      { id: 10, title: "Facade Book", author: "Test Author" },
+    ];
     controller.rootStore.booksStore.isLoading = true;
     controller.rootStore.uiStore.filter = "private";
     controller.rootStore.uiStore.isAddModalOpen = true;
@@ -128,7 +132,9 @@ describe("BooksController", () => {
       await controller.addBook();
 
       expect(mockBooksRepository.addBook).not.toHaveBeenCalled();
-      expect(controller.errorMessage).toBe("Both book title and author are required.");
+      expect(controller.errorMessage).toBe(
+        "Both book title and author are required.",
+      );
     });
 
     test("addBook posts new book via repository, reloads books, and closes modal", async () => {
@@ -141,7 +147,7 @@ describe("BooksController", () => {
 
       expect(mockBooksRepository.addBook).toHaveBeenCalledWith({
         name: "Refactoring",
-        author: "Martin Fowler"
+        author: "Martin Fowler",
       });
       expect(mockBooksRepository.getBooks).toHaveBeenCalled();
       expect(controller.isAddModalOpen).toBe(false);
