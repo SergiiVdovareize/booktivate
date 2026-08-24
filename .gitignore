@@ -29,3 +29,6 @@ yarn-error.log*
 .vscode/
 .idea/
 *.scratch
+REFACTORING_LOG.md
+TASK_ANALYSIS.md
+
