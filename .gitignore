@@ -23,3 +23,5 @@ yarn-error.log*
 # AI Assistant & IDE files
 .agents/*
 Fast-Test Homework.pdf
+skills-lock.json
+

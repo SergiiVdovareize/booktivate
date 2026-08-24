@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
+import AddBookModal from "./AddBookModal";
 
 export const BooksView = observer(({ controller }) => {
   useEffect(() => {
@@ -10,24 +11,46 @@ export const BooksView = observer(({ controller }) => {
     <div className="books-container">
       <h2>Books List</h2>
 
+      {/* Filter Switch Tabs */}
+      <div className="filter-tabs">
+        <button
+          type="button"
+          className={`filter-btn ${controller.filter === "all" ? "active" : ""}`}
+          onClick={() => controller.setFilter("all")}
+        >
+          All Books
+        </button>
+        <button
+          type="button"
+          className={`filter-btn ${controller.filter === "private" ? "active" : ""}`}
+          onClick={() => controller.setFilter("private")}
+        >
+          Private Books
+        </button>
+      </div>
+
       {controller.isLoading && <div className="loading">Loading books...</div>}
       {controller.errorMessage && <div className="error">{controller.errorMessage}</div>}
 
       <div className="books-list">
-        {controller.allBooks.map((book, index) => (
+        {controller.filteredBooks.map((book, index) => (
           <div key={book.id || index} className="book-item">
-            <strong>{book.author}</strong>: {book.name}
+            <span>
+              <strong>{book.author}</strong>: {book.name}
+            </span>
           </div>
         ))}
+
+        {!controller.isLoading && controller.filteredBooks.length === 0 && (
+          <div className="empty-state">No books found in this view.</div>
+        )}
       </div>
 
-      <button
-        onClick={() => {
-          alert("TBD");
-        }}
-      >
-        Add
+      <button onClick={controller.openAddModal}>
+        Add Book
       </button>
+
+      <AddBookModal controller={controller} />
     </div>
   );
 });
