@@ -2,18 +2,18 @@
 
 A simple React application built using **Fast-Test MVVM Architecture** and **MobX State Management**.
 
-[![Linter](https://img.shields.io/github/actions/workflow/status/svdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
-[![Unit Tests](https://img.shields.io/github/actions/workflow/status/svdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/svdovareize/booktivate/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://svdovareize.github.io/booktivate/coverage/index.html)
+[![Linter](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
+[![Unit Tests](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://booktivate.vdovareize.me/coverage/index.html)
 [![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
-[![Deploy](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/svdovareize/booktivate/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml)
 
 ---
 
 ## 🚀 Live Demo & Web Reports
 
-* **🌐 Live Application Demo**: [https://svdovareize.github.io/booktivate/](https://svdovareize.github.io/booktivate/)
-* **📊 Interactive Test Coverage Webpage**: [https://svdovareize.github.io/booktivate/coverage/index.html](https://svdovareize.github.io/booktivate/coverage/index.html)
+* **🌐 Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
+* **📊 Interactive Test Coverage Webpage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
 * **🎨 Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate/builds/1](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
 
 ---
