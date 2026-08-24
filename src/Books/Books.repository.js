@@ -1,8 +1,8 @@
 import ApiGateway from "../Shared/ApiGateway.js";
 
-class BooksRepository {
-  constructor() {
-    this.httpGateway = new ApiGateway();
+export class BooksRepository {
+  constructor(httpGateway = new ApiGateway()) {
+    this.httpGateway = httpGateway;
   }
 
   getBooks = async () => {
@@ -10,8 +10,13 @@ class BooksRepository {
     return booksDto;
   };
 
+  getPrivateBooks = async () => {
+    const privateBooksDto = await this.httpGateway.get("/private");
+    return privateBooksDto;
+  };
+
   addBook = async ({ name, author }) => {
-    const bookAddDto = await this.httpGateway.post("/books", { name, author });
+    const bookAddDto = await this.httpGateway.post("/", { name, author });
     return bookAddDto && bookAddDto.status === "ok" ? true : false;
   };
 }
