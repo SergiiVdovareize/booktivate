@@ -13,9 +13,9 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 ## 🚀 Live Demo & Web Reports
 
-* **🌐 Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
-* **📊 Interactive Test Coverage Webpage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
-* **🎨 Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate](https://app.argos-ci.com/s-vdovareize/booktivate)
+* **Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
+* **Interactive Test Coverage Webpage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
+* **Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate](https://app.argos-ci.com/s-vdovareize/booktivate)
 
 > **💡 Demo Tip**: Use the username `svdovareize` to view pre-populated demo data.
 
