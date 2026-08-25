@@ -21,13 +21,9 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 ## 🏗️ Architecture & Features
 
-* **MVVM Architecture**: Controller facade (`BooksController`) managing MobX RootStore (`UserStore`, `UIStore`, `BooksStore`).
-* **Dependency Injection**: React Context DI (`ControllerProvider` & `useController()`).
-* **MSW Network Fault Injection**: Integration testing via Mock Service Worker (`src/mocks/handlers.js`) validating HTTP 500 error & network connection failure resilience.
-* **Lighthouse Core Web Vitals CI Gate**: Automated `@lhci/cli` auditing in GitHub Actions enforcing strict performance, accessibility, SEO, and best-practice thresholds.
-* **Programmer's Model (PM)**: Explicit domain entity (`Book.model.js`) encapsulating business logic (`displayTitle`, `isPrivate`).
-* **Data Sanitization**: Automatic filtering of empty HTTP DTOs (`{}`) returned by backend services.
-* **User Profile Switcher**: Interactive user switcher with read-only view mode, inline editing, and state cancellation.
+* **Fast-Test MVVM Architecture**: React components decoupled from state and business logic via Controller and MobX stores.
+* **Domain Model & Sanitization**: Programmer's Model (PM) domain entities with automated HTTP DTO sanitization.
+* **Network & Quality Assurance**: MSW fault-injection testing, Argos visual UI testing, and Lighthouse Core Web Vitals CI gate.
 
 ---
 
