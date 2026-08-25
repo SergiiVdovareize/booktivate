@@ -47,3 +47,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.5
+
+      - name: Run Lighthouse Audit against Production URL
+        run: npx lhci autorun
+        env:
+          LHCI_URL: https://booktivate.vdovareize.me/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

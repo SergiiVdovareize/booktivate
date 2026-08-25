@@ -1,7 +1,9 @@
 module.exports = {
   ci: {
     collect: {
-      staticDistDir: "./build",
+      ...(process.env.LHCI_URL
+        ? { url: [process.env.LHCI_URL] }
+        : { staticDistDir: "./build" }),
       numberOfRuns: 3,
     },
     assert: {
