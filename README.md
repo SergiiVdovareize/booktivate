@@ -5,7 +5,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 [![Linter](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Unit Tests](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://booktivate.vdovareize.me/coverage/index.html)
-[![Lighthouse CI](https://img.shields.io/badge/Lighthouse_CI-passing-blue?logo=lighthouse)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
+[![Lighthouse CI](https://img.shields.io/badge/Lighthouse_CI-passing-blue?logo=lighthouse)](https://booktivate.vdovareize.me/lighthouse/index.html)
 [![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate)
 [![Deploy](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml)
 
@@ -15,6 +15,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 * **Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
 * **Test Coverage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
+* **Lighthouse Audit Report**: [https://booktivate.vdovareize.me/lighthouse/index.html](https://booktivate.vdovareize.me/lighthouse/index.html)
 * **Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate](https://app.argos-ci.com/s-vdovareize/booktivate)
 
 > **💡 Demo Tip**: Use the username `svdovareize` to view pre-populated demo data.
