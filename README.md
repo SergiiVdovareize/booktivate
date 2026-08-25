@@ -5,6 +5,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 [![Linter](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Unit Tests](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://booktivate.vdovareize.me/coverage/index.html)
+[![Lighthouse CI](https://img.shields.io/badge/Lighthouse_CI-passing-blue?logo=lighthouse)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate)
 [![Deploy](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml)
 
@@ -22,6 +23,8 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 * **MVVM Architecture**: Controller facade (`BooksController`) managing MobX RootStore (`UserStore`, `UIStore`, `BooksStore`).
 * **Dependency Injection**: React Context DI (`ControllerProvider` & `useController()`).
+* **MSW Network Fault Injection**: Integration testing via Mock Service Worker (`src/mocks/handlers.js`) validating HTTP 500 error & network connection failure resilience.
+* **Lighthouse Core Web Vitals CI Gate**: Automated `@lhci/cli` auditing in GitHub Actions enforcing strict performance, accessibility, SEO, and best-practice thresholds.
 * **Programmer's Model (PM)**: Explicit domain entity (`Book.model.js`) encapsulating business logic (`displayTitle`, `isPrivate`).
 * **Data Sanitization**: Automatic filtering of empty HTTP DTOs (`{}`) returned by backend services.
 * **User Profile Switcher**: Interactive user switcher with read-only view mode, inline editing, and state cancellation.
@@ -36,10 +39,15 @@ npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Run Unit Tests & Coverage
+### Run Unit & MSW Integration Tests
 ```bash
-npm test                      # Run Jest unit tests
-npm run test:coverage         # Run unit tests with coverage report
+npm test                      # Run Jest unit & MSW integration tests
+npm run test:coverage         # Run unit & MSW tests with coverage report
+```
+
+### Run Lighthouse Core Web Vitals Audit Locally
+```bash
+npm run build && npm run lhci # Build production bundle and run Lighthouse CI audit
 ```
 
 ### Run Argos Visual UI Tests
@@ -65,7 +73,7 @@ npm run build                 # Create production build and embed HTML coverage 
 The repository features a **2-Tiered GitHub Actions Pipeline**:
 
 1. **`ci.yml` (Continuous Integration)**:
-   - **Tier 1**: Runs Biome linter check (`npm run lint`) & Jest unit tests with coverage (`npm run test:coverage`) in parallel.
-   - **Tier 2**: Runs Playwright Argos visual tests (`npm run test:argos`) & production build validation upon Tier 1 completion.
+   - **Tier 1**: Runs Biome linter check (`npm run lint`) & Jest unit + MSW integration tests with coverage (`npm run test:coverage`) in parallel.
+   - **Tier 2**: Runs Playwright Argos visual tests (`npm run test:argos`) & Production Build + Lighthouse Web Vitals CI Audit (`npx lhci autorun`) upon Tier 1 completion.
 2. **`deploy.yml` (GitHub Pages Deployment)**:
    - Automatically builds and deploys the app & HTML coverage report to GitHub Pages on every successful push to `main`.
