@@ -11,17 +11,17 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 ---
 
-## 🚀 Live Demo & Web Reports
+## Links
 
 * **Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
-* **Interactive Test Coverage Webpage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
+* **Test Coverage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
 * **Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate](https://app.argos-ci.com/s-vdovareize/booktivate)
 
 > **💡 Demo Tip**: Use the username `svdovareize` to view pre-populated demo data.
 
 ---
 
-## 🏗️ Architecture & Features
+## Architecture & Features
 
 * **Fast-Test MVVM Architecture**: React components decoupled from state and business logic via Controller and MobX stores.
 * **Domain Model & Sanitization**: Programmer's Model (PM) domain entities with automated HTTP DTO sanitization.
@@ -29,7 +29,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 ---
 
-## 🛠️ Available Scripts
+## Available Scripts
 
 ### Run App Locally
 ```bash
@@ -66,7 +66,7 @@ npm run build                 # Create production build and embed HTML coverage 
 
 ---
 
-## ⚙️ Continuous Integration (GitHub Actions)
+## Continuous Integration (GitHub Actions)
 
 The repository features a **2-Tiered GitHub Actions Pipeline**:
 
