@@ -67,6 +67,14 @@ export class BooksController {
     return this.rootStore.uiStore.sortOrder;
   }
 
+  get theme() {
+    return this.rootStore.uiStore.theme;
+  }
+
+  toggleTheme = () => {
+    this.rootStore.uiStore.toggleTheme();
+  };
+
   get isAddModalOpen() {
     return this.rootStore.uiStore.isAddModalOpen;
   }

@@ -14,6 +14,7 @@ describe("AddBookModal Component", () => {
 
     mockController = {
       isAddModalOpen: true,
+      username: "svdovareize",
       newBookName: "Dune",
       newBookAuthor: "Frank Herbert",
       isSubmitting: false,
@@ -45,7 +46,7 @@ describe("AddBookModal Component", () => {
     expect(container.textContent).toBe("");
   });
 
-  test("renders form inputs, error message, and action buttons when open", () => {
+  test("renders form inputs, error message, username badge, and action buttons when open", () => {
     mockController.errorMessage = "Title required";
 
     act(() => {
@@ -59,6 +60,11 @@ describe("AddBookModal Component", () => {
 
     expect(container.textContent).toContain("Add New Book");
     expect(container.textContent).toContain("Title required");
+    expect(container.textContent).toContain("svdovareize");
+
+    const userBadge = container.querySelector(".modal-user-badge");
+    expect(userBadge).not.toBeNull();
+    expect(userBadge.textContent).toBe("svdovareize");
 
     const nameInput = container.querySelector("#book-name");
     const authorInput = container.querySelector("#book-author");

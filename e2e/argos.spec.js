@@ -1,5 +1,22 @@
+const fs = require("fs");
+const path = require("path");
 const { test, expect } = require("@playwright/test");
 const { argosScreenshot } = require("@argos-ci/playwright");
+
+async function captureScreenshot(page, testInfo, name) {
+  await argosScreenshot(page, name);
+
+  const safeProjectName = testInfo.project.name.replace(/\s+/g, "_").toLowerCase();
+  const fileName = `${name}_${safeProjectName}.png`;
+
+  const localDir = path.join(__dirname, "../screenshots");
+  if (!fs.existsSync(localDir)) {
+    fs.mkdirSync(localDir, { recursive: true });
+  }
+
+  const localPath = path.join(localDir, fileName);
+  await page.screenshot({ path: localPath });
+}
 
 test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", () => {
   let mockAllBooks;
@@ -75,28 +92,28 @@ test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", 
     });
   });
 
-  test("main books view screenshot", async ({ page }) => {
+  test("main books view screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector(".books-container");
-    await argosScreenshot(page, "books-view-all");
+    await captureScreenshot(page, testInfo, "books-view-all");
   });
 
-  test("private books filter switch screenshot", async ({ page }) => {
+  test("private books filter switch screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector(".filter-tabs");
     await page.click("button:has-text('Private Books')");
-    await argosScreenshot(page, "books-view-private");
+    await captureScreenshot(page, testInfo, "books-view-private");
   });
 
-  test("add book modal screenshot", async ({ page }) => {
+  test("add book modal screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector("button:has-text('Add Book')");
     await page.click("button:has-text('Add Book')");
     await page.waitForSelector(".modal-content");
-    await argosScreenshot(page, "add-book-modal");
+    await captureScreenshot(page, testInfo, "add-book-modal");
   });
 
-  test("add book form submission flow screenshot", async ({ page }) => {
+  test("add book form submission flow screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector("button:has-text('Add Book')");
     await page.click("button:has-text('Add Book')");
@@ -104,22 +121,22 @@ test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", 
 
     await page.fill("#book-name", "Refactoring");
     await page.fill("#book-author", "Martin Fowler");
-    await page.click(".modal-actions button:has-text('Add')");
+    await page.click(".modal-actions button[type='submit']");
 
     // Wait for the modal to close and newly added book card to render in list
     await page.waitForSelector(".book-item:has-text('Refactoring')");
-    await argosScreenshot(page, "books-view-after-add");
+    await captureScreenshot(page, testInfo, "books-view-after-add");
   });
 
-  test("user edit mode header screenshot", async ({ page }) => {
+  test("user edit mode header screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector(".change-user-btn");
     await page.click(".change-user-btn");
     await page.waitForSelector("#user-input");
-    await argosScreenshot(page, "header-user-edit-mode");
+    await captureScreenshot(page, testInfo, "header-user-edit-mode");
   });
 
-  test("user switching privacy isolation screenshot", async ({ page }) => {
+  test("user switching privacy isolation screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
 
     // 1. Add a private book as demouser
@@ -128,7 +145,7 @@ test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", 
     await page.waitForSelector(".modal-content");
     await page.fill("#book-name", "Demouser Secret Journal");
     await page.fill("#book-author", "Demouser");
-    await page.click(".modal-actions button:has-text('Add')");
+    await page.click(".modal-actions button[type='submit']");
     await page.waitForSelector(".book-item:has-text('Demouser Secret Journal')");
 
     // 2. Switch user to smith
@@ -144,20 +161,28 @@ test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", 
     const textContent = await page.textContent(".books-container");
     expect(textContent).not.toContain("Demouser Secret Journal");
 
-    await argosScreenshot(page, "user-switch-privacy-isolation");
+    await captureScreenshot(page, testInfo, "user-switch-privacy-isolation");
   });
 
-  test("multi-criteria sorting controls screenshot", async ({ page }) => {
+  test("multi-criteria sorting controls screenshot", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForSelector("#sort-select");
 
     // Select Title sort
     await page.selectOption("#sort-select", "title");
     await page.waitForSelector(".book-item");
-    await argosScreenshot(page, "books-view-sort-title-asc");
+    await captureScreenshot(page, testInfo, "books-view-sort-title-asc");
 
     // Toggle Order to DESC
     await page.click(".sort-order-btn");
-    await argosScreenshot(page, "books-view-sort-title-desc");
+    await captureScreenshot(page, testInfo, "books-view-sort-title-desc");
+  });
+
+  test("dark theme view screenshot", async ({ page }, testInfo) => {
+    await page.goto("/");
+    await page.waitForSelector(".theme-toggle-btn");
+    await page.click(".theme-toggle-btn");
+    await page.waitForSelector("html[data-theme='dark']");
+    await captureScreenshot(page, testInfo, "books-view-dark-theme");
   });
 });

@@ -19,6 +19,15 @@ export const HeaderView = observer(({ controller: propController }) => {
       <div className="header-content">
         <h1 className="header-title">Reaktivate Books</h1>
         <div className="header-right">
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={controller.toggleTheme}
+            title={`Switch to ${controller.theme === "light" ? "Dark" : "Light"} mode`}
+            aria-label="Toggle theme"
+          >
+            {controller.theme === "light" ? "🌙" : "☀️"}
+          </button>
           <div className="user-selector">
             <label htmlFor="user-input">User: </label>
             {controller.isEditingUsername ? (

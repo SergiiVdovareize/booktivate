@@ -12,6 +12,9 @@ describe("RootStore Pattern", () => {
     if (typeof sessionStorage !== "undefined") {
       sessionStorage.clear();
     }
+    if (typeof localStorage !== "undefined") {
+      localStorage.clear();
+    }
     mockBooksRepository = {
       getBooks: jest.fn().mockResolvedValue(mockAllBooks),
       getPrivateBooks: jest.fn().mockResolvedValue(mockPrivateBooks),
@@ -62,6 +65,18 @@ describe("RootStore Pattern", () => {
     // Simulate new session / page refresh
     const refreshedRootStore = new RootStore(mockBooksRepository);
     expect(refreshedRootStore.userStore.username).toBe("svdovareize");
+  });
+
+  test("uiStore supports theme state toggling and localStorage persistence", () => {
+    expect(rootStore.uiStore.theme).toBe("light");
+
+    rootStore.uiStore.toggleTheme();
+    expect(rootStore.uiStore.theme).toBe("dark");
+    expect(localStorage.getItem("booktivate_theme")).toBe("dark");
+
+    rootStore.uiStore.toggleTheme();
+    expect(rootStore.uiStore.theme).toBe("light");
+    expect(localStorage.getItem("booktivate_theme")).toBe("light");
   });
 
   test("uiStore filter controls booksStore filteredBooks derivation", async () => {
