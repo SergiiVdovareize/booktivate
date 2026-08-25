@@ -5,7 +5,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 [![Linter](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Linter&logo=biome)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Unit Tests](https://img.shields.io/github/actions/workflow/status/SergiiVdovareize/booktivate/ci.yml?branch=main&label=Unit%20Tests&logo=jest)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/Coverage-93.58%25-brightgreen.svg)](https://booktivate.vdovareize.me/coverage/index.html)
-[![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
+[![Argos CI](https://img.shields.io/badge/Argos_UI-passing-brightgreen)](https://app.argos-ci.com/s-vdovareize/booktivate)
 [![Deploy](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml/badge.svg)](https://github.com/SergiiVdovareize/booktivate/actions/workflows/deploy.yml)
 
 ---
@@ -14,7 +14,7 @@ A simple React application built using **Fast-Test MVVM Architecture** and **Mob
 
 * **🌐 Live Application Demo**: [https://booktivate.vdovareize.me/](https://booktivate.vdovareize.me/)
 * **📊 Interactive Test Coverage Webpage**: [https://booktivate.vdovareize.me/coverage/index.html](https://booktivate.vdovareize.me/coverage/index.html)
-* **🎨 Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate/builds/1](https://app.argos-ci.com/s-vdovareize/booktivate/builds/1)
+* **🎨 Argos Visual UI Builds**: [https://app.argos-ci.com/s-vdovareize/booktivate](https://app.argos-ci.com/s-vdovareize/booktivate)
 
 ---
 
