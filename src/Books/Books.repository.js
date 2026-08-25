@@ -25,7 +25,7 @@ export class BooksRepository {
 
   addBook = async ({ name, author }) => {
     const bookAddDto = await this.httpGateway.post("/", { name, author });
-    return bookAddDto && bookAddDto.status === "ok" ? true : false;
+    return Boolean(bookAddDto && bookAddDto.status === "ok");
   };
 }
 
