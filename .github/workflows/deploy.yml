@@ -7,7 +7,7 @@ on:
     branches: [main, master]
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -33,11 +33,25 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: Install & Build
+      - name: Install, Build & Audit Production
         run: |
           npm ci --legacy-peer-deps
           npm run test:coverage
           npm run build
+          npx lhci autorun || true
+          node -e '
+            const fs = require("fs");
+            let reportUrl = "";
+            try {
+              const links = require("./.lighthouseci/links.json");
+              reportUrl = Object.values(links)[0] || "";
+            } catch (e) {}
+            if (reportUrl) {
+              fs.mkdirSync("build/lighthouse", { recursive: true });
+              const html = `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${reportUrl}"><script>window.location.replace("${reportUrl}");</script></head><body>Redirecting to <a href="${reportUrl}">Lighthouse Audit Report</a>...</body></html>`;
+              fs.writeFileSync("build/lighthouse/index.html", html);
+            }
+          '
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3.0.1
@@ -47,23 +61,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.5
-
-      - name: Run Post-Deployment Lighthouse Audit & Update README
-        run: |
-          npx lhci autorun
-          node -e '
-            const links = require("./.lighthouseci/links.json");
-            const reportUrl = Object.values(links)[0];
-            if (reportUrl) {
-              const fs = require("fs");
-              let readme = fs.readFileSync("README.md", "utf8");
-              readme = readme.replace(/\* \*\*Lighthouse Audit Report\*\*: .*/, `* **Lighthouse Audit Report**: [${reportUrl}](${reportUrl})`);
-              readme = readme.replace(/\[!\[Lighthouse CI\]\(.*?\)]\(.*?\)/, `[![Lighthouse CI](https://img.shields.io/badge/Lighthouse_CI-passing-blue?logo=lighthouse)](${reportUrl})`);
-              fs.writeFileSync("README.md", readme);
-            }
-          '
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "docs: update post-deployment Lighthouse audit report link and badge [skip ci]" || true
-          git push
