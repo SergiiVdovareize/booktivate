@@ -52,4 +52,3 @@ jobs:
         run: npx lhci autorun
         env:
           LHCI_URL: https://booktivate.vdovareize.me/
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

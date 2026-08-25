@@ -94,5 +94,3 @@ jobs:
 
       - name: Run Lighthouse Core Web Vitals Audit
         run: npx lhci autorun
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
