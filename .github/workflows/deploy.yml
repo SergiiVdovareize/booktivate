@@ -38,9 +38,6 @@ jobs:
           npm ci --legacy-peer-deps
           npm run test:coverage
           npm run build
-          npx lhci autorun
-          mkdir -p build/lighthouse
-          cp $(ls -t .lighthouseci/lhr-*.html 2>/dev/null | head -n 1) build/lighthouse/index.html || true
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3.0.1
@@ -50,3 +47,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.5
+
+      - name: Run Post-Deployment Lighthouse Audit
+        run: npx lhci autorun

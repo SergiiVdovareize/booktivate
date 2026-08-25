@@ -1,9 +1,7 @@
 module.exports = {
   ci: {
     collect: {
-      ...(process.env.LHCI_URL
-        ? { url: [process.env.LHCI_URL] }
-        : { staticDistDir: "./build" }),
+      url: ["https://booktivate.vdovareize.me/"],
       numberOfRuns: 3,
     },
     assert: {

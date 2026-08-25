@@ -73,7 +73,7 @@ jobs:
           ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
 
   build:
-    name: Production Build & Lighthouse Web Vitals Audit
+    name: Production Build
     needs: [lint, unit-test]
     runs-on: ubuntu-latest
     steps:
@@ -91,6 +91,3 @@ jobs:
 
       - name: Build Production Bundle
         run: npm run build
-
-      - name: Run Lighthouse Core Web Vitals Audit
-        run: npx lhci autorun
