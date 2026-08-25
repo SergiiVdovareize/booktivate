@@ -24,22 +24,51 @@ export const BooksView = observer(({ controller: propController }) => {
         </button>
       </div>
 
-      {/* Filter Switch Tabs */}
-      <div className="filter-tabs">
-        <button
-          type="button"
-          className={`filter-btn ${controller.filter === "all" ? "active" : ""}`}
-          onClick={() => controller.setFilter("all")}
-        >
-          All Books
-        </button>
-        <button
-          type="button"
-          className={`filter-btn ${controller.filter === "private" ? "active" : ""}`}
-          onClick={() => controller.setFilter("private")}
-        >
-          Private Books ({controller.privateBooksCount})
-        </button>
+      {/* Controls Bar: Filter Tabs & Sorting */}
+      <div className="controls-bar">
+        <div className="filter-tabs">
+          <button
+            type="button"
+            className={`filter-btn ${controller.filter === "all" ? "active" : ""}`}
+            onClick={() => controller.setFilter("all")}
+          >
+            All Books ({controller.allBooksCount})
+          </button>
+          <button
+            type="button"
+            className={`filter-btn ${controller.filter === "private" ? "active" : ""}`}
+            onClick={() => controller.setFilter("private")}
+          >
+            Private Books ({controller.privateBooksCount})
+          </button>
+        </div>
+
+        <div className="sort-controls">
+          <label htmlFor="sort-select" className="sort-label">
+            Sort:
+          </label>
+          <select
+            id="sort-select"
+            className="sort-select"
+            value={controller.sortBy}
+            onChange={(e) => controller.setSortBy(e.target.value)}
+          >
+            <option value="default">Default</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+          </select>
+
+          {controller.sortBy !== "default" && (
+            <button
+              type="button"
+              className="sort-order-btn"
+              onClick={controller.toggleSortOrder}
+              title={`Sort ${controller.sortOrder === "asc" ? "Descending" : "Ascending"}`}
+            >
+              {controller.sortOrder === "asc" ? "↑ ASC" : "↓ DESC"}
+            </button>
+          )}
+        </div>
       </div>
 
       {controller.isLoading && (

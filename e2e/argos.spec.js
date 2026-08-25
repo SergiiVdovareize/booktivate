@@ -146,4 +146,18 @@ test.describe("Argos Visual UI Tests (Deterministic Mocked Data & Operations)", 
 
     await argosScreenshot(page, "user-switch-privacy-isolation");
   });
+
+  test("multi-criteria sorting controls screenshot", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForSelector("#sort-select");
+
+    // Select Title sort
+    await page.selectOption("#sort-select", "title");
+    await page.waitForSelector(".book-item");
+    await argosScreenshot(page, "books-view-sort-title-asc");
+
+    // Toggle Order to DESC
+    await page.click(".sort-order-btn");
+    await argosScreenshot(page, "books-view-sort-title-desc");
+  });
 });

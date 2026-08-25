@@ -59,6 +59,14 @@ export class BooksController {
     return this.rootStore.uiStore.filter;
   }
 
+  get sortBy() {
+    return this.rootStore.uiStore.sortBy;
+  }
+
+  get sortOrder() {
+    return this.rootStore.uiStore.sortOrder;
+  }
+
   get isAddModalOpen() {
     return this.rootStore.uiStore.isAddModalOpen;
   }
@@ -83,12 +91,28 @@ export class BooksController {
     return this.rootStore.booksStore.filteredBooks;
   }
 
+  get allBooksCount() {
+    return this.rootStore.booksStore.allBooksCount;
+  }
+
   get privateBooksCount() {
     return this.rootStore.booksStore.privateBooksCount;
   }
 
   setFilter = (filter) => {
     this.rootStore.uiStore.setFilter(filter);
+  };
+
+  setSortBy = (sortBy) => {
+    this.rootStore.uiStore.setSortBy(sortBy);
+  };
+
+  setSortOrder = (sortOrder) => {
+    this.rootStore.uiStore.setSortOrder(sortOrder);
+  };
+
+  toggleSortOrder = () => {
+    this.rootStore.uiStore.toggleSortOrder();
   };
 
   openAddModal = () => {

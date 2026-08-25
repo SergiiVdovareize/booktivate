@@ -29,7 +29,7 @@ describe("HeaderView Component", () => {
     container = null;
   });
 
-  test("renders read-only username, private books count, and Switch user button", () => {
+  test("renders read-only username and Switch user button", () => {
     act(() => {
       ReactDOM.render(
         <ControllerProvider controller={mockController}>
@@ -40,7 +40,6 @@ describe("HeaderView Component", () => {
     });
 
     expect(container.textContent).toContain("svdovareize");
-    expect(container.textContent).toContain("Your books: 3");
     expect(container.textContent).toContain("Switch user");
   });
 

@@ -61,9 +61,6 @@ export const HeaderView = observer(({ controller: propController }) => {
               </>
             )}
           </div>
-          <div className="private-books-badge">
-            Your books: <strong>{controller.privateBooksCount}</strong>
-          </div>
         </div>
       </div>
     </header>

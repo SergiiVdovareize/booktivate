@@ -2,6 +2,8 @@ import { makeAutoObservable } from "mobx";
 
 export class UIStore {
   filter = "all"; // 'all' | 'private'
+  sortBy = "default"; // 'default' | 'title' | 'author'
+  sortOrder = "asc"; // 'asc' | 'desc'
   isAddModalOpen = false;
   newBookName = "";
   newBookAuthor = "";
@@ -15,6 +17,18 @@ export class UIStore {
 
   setFilter = (filter) => {
     this.filter = filter;
+  };
+
+  setSortBy = (sortBy) => {
+    this.sortBy = sortBy;
+  };
+
+  setSortOrder = (sortOrder) => {
+    this.sortOrder = sortOrder;
+  };
+
+  toggleSortOrder = () => {
+    this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
   };
 
   openAddModal = () => {

@@ -17,7 +17,30 @@ export class BooksStore {
 
   get filteredBooks() {
     const filter = this.rootStore?.uiStore?.filter || "all";
-    return filter === "private" ? this.privateBooks : this.allBooks;
+    const sortBy = this.rootStore?.uiStore?.sortBy || "default";
+    const sortOrder = this.rootStore?.uiStore?.sortOrder || "asc";
+
+    const baseList = filter === "private" ? this.privateBooks : this.allBooks;
+    const list = [...baseList];
+
+    if (sortBy === "default") {
+      return list;
+    }
+
+    return list.sort((a, b) => {
+      const valA = (sortBy === "author" ? a.author : a.title || a.name || "")
+        .trim()
+        .toLowerCase();
+      const valB = (sortBy === "author" ? b.author : b.title || b.name || "")
+        .trim()
+        .toLowerCase();
+      const cmp = valA.localeCompare(valB);
+      return sortOrder === "desc" ? -cmp : cmp;
+    });
+  }
+
+  get allBooksCount() {
+    return this.allBooks.length;
   }
 
   get privateBooksCount() {

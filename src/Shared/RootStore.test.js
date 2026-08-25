@@ -9,6 +9,9 @@ describe("RootStore Pattern", () => {
   const mockPrivateBooks = [{ id: 1, title: "Dune", author: "Frank Herbert" }];
 
   beforeEach(() => {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.clear();
+    }
     mockBooksRepository = {
       getBooks: jest.fn().mockResolvedValue(mockAllBooks),
       getPrivateBooks: jest.fn().mockResolvedValue(mockPrivateBooks),
@@ -49,6 +52,18 @@ describe("RootStore Pattern", () => {
     expect(mockBooksRepository.getBooks).toHaveBeenCalled();
   });
 
+  test("userStore persists username to sessionStorage and reuses it on store initialization", () => {
+    rootStore.userStore.startEditingUsername();
+    rootStore.userStore.setDraftUsername("svdovareize");
+    rootStore.userStore.applyUsername();
+
+    expect(sessionStorage.getItem("booktivate_username")).toBe("svdovareize");
+
+    // Simulate new session / page refresh
+    const refreshedRootStore = new RootStore(mockBooksRepository);
+    expect(refreshedRootStore.userStore.username).toBe("svdovareize");
+  });
+
   test("uiStore filter controls booksStore filteredBooks derivation", async () => {
     await rootStore.booksStore.loadBooks();
 
@@ -57,6 +72,51 @@ describe("RootStore Pattern", () => {
 
     rootStore.uiStore.setFilter("private");
     expect(rootStore.booksStore.filteredBooks).toEqual(mockPrivateBooks);
+  });
+
+  test("supports sorting books by title or author with ascending and descending order", async () => {
+    const unsortedBooks = [
+      { id: 1, title: "The Hobbit", author: "J.R.R. Tolkien" },
+      { id: 2, title: "Clean Code", author: "Robert C. Martin" },
+      { id: 3, title: "I, Robot", author: "Isaac Asimov" },
+    ];
+    mockBooksRepository.getBooks.mockResolvedValue(unsortedBooks);
+
+    await rootStore.booksStore.loadBooks();
+
+    // Default order
+    rootStore.uiStore.setSortBy("default");
+    expect(rootStore.booksStore.filteredBooks.map((b) => b.title)).toEqual([
+      "The Hobbit",
+      "Clean Code",
+      "I, Robot",
+    ]);
+
+    // Sort by title ASC
+    rootStore.uiStore.setSortBy("title");
+    rootStore.uiStore.setSortOrder("asc");
+    expect(rootStore.booksStore.filteredBooks.map((b) => b.title)).toEqual([
+      "Clean Code",
+      "I, Robot",
+      "The Hobbit",
+    ]);
+
+    // Sort by title DESC
+    rootStore.uiStore.toggleSortOrder();
+    expect(rootStore.booksStore.filteredBooks.map((b) => b.title)).toEqual([
+      "The Hobbit",
+      "I, Robot",
+      "Clean Code",
+    ]);
+
+    // Sort by author ASC
+    rootStore.uiStore.setSortBy("author");
+    rootStore.uiStore.setSortOrder("asc");
+    expect(rootStore.booksStore.filteredBooks.map((b) => b.author)).toEqual([
+      "Isaac Asimov",
+      "J.R.R. Tolkien",
+      "Robert C. Martin",
+    ]);
   });
 
   test("booksStore.addBook uses uiStore form observables and triggers loadBooks", async () => {
